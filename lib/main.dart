@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<MovieCubit>(
       create: (_) => MovieCubit(repository: MovieRepository(Dio())),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -37,6 +37,7 @@ class _MoviesPageState extends State<MoviesPage> {
                         title: Text(movies[index].title),
                         subtitle: Text(movies[index].releaseDate),
                         trailing: CircleAvatar(
+                          radius: 30,
                           backgroundImage: NetworkImage(movies[index].image),
                         )),
                   );
