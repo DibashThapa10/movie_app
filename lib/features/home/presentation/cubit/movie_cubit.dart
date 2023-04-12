@@ -8,7 +8,7 @@ class MovieCubit extends Cubit<MovieState> {
   }
   final MovieRepository repository;
 
-  void getTrendingMovies() async {
+ Future <void> getTrendingMovies() async {
     try {
       emit(LoadingState());
       final movies = await repository.getMovies();

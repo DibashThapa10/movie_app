@@ -13,12 +13,13 @@ class MovieRepository {
       final movies = List<MovieModel>.of(response.data['results']
           .map<MovieModel>((json) => MovieModel(
               title: json['title'],
+              rating: json['vote_average'],
               image: 'https://image.tmdb.org/t/p/w185${json['poster_path']}',
               releaseDate: json['release_date'])));
       print("This is the response of getMovies: ${response.data['results']}");
       return movies;
     } catch (e) {
-      throw Exception("Something went wrong");
+      throw Exception(e);
     }
   }
 }
