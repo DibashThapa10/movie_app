@@ -46,125 +46,123 @@ class _MoviesPageState extends State<MoviesPage> {
                 );
               } else if (state is LoadedState) {
                 final movies = state.movies;
-                return Container(
-                  child: Column(
-                    children: [
-                      CarouselSlider.builder(
+                return Column(
+                  children: [
+                    CarouselSlider.builder(
+                      itemCount: movies.length,
+                      itemBuilder: (context, index, realIndex) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 10),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                          image:
+                                              NetworkImage(movies[index].image),
+                                          fit: BoxFit.cover)),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                movies[index].title,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      options: CarouselOptions(
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              currentIndex = index.toDouble();
+                            });
+                          },
+                          autoPlay: true,
+                          initialPage: 1,
+                          enlargeCenterPage: true,
+                          viewportFraction: 0.8,
+                          aspectRatio: 1.2),
+                    ),
+                    const SizedBox(height: 10),
+                    DotsIndicator(
+                      dotsCount: movies.length,
+                      position: currentIndex,
+                      decorator: DotsDecorator(
+                        activeColor: Theme.of(context).primaryColor,
+                        color: Colors.grey.shade300,
+                        size: const Size.square(9.0),
+                        spacing: const EdgeInsets.symmetric(horizontal: 3),
+                        activeSize: const Size(18.0, 9.0),
+                        activeShape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Container(
+                      height: 25,
+                      width: double.infinity,
+                      color: Theme.of(context).canvasColor,
+                      child: const Text(
+                        "Trending Movies",
+                        style: TextStyle(
+                            color: Colors.indigo,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
                         itemCount: movies.length,
-                        itemBuilder: (context, index, realIndex) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 20, horizontal: 10),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                movies[index].image),
-                                            fit: BoxFit.cover)),
-                                  ),
+                        itemBuilder: (context, index) {
+                          return Card(
+                            child: ListTile(
+                                title: Text(movies[index].title),
+                                subtitle: Row(
+                                  children: [
+                                    Text(movies[index].releaseDate),
+                                    const SizedBox(
+                                      width: 50,
+                                    ),
+                                    const Icon(
+                                      Icons.star_rounded,
+                                      color: Colors.amber,
+                                      size: 18,
+                                    ),
+                                    Text(
+                                      movies[index]
+                                          .rating
+                                          .toDouble()
+                                          .toString(),
+                                      style:
+                                          const TextStyle(color: Colors.amber),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  movies[index].title,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
+                                trailing: CircleAvatar(
+                                  radius: 30,
+                                  backgroundImage:
+                                      NetworkImage(movies[index].image),
+                                )),
                           );
                         },
-                        options: CarouselOptions(
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                currentIndex = index.toDouble();
-                              });
-                            },
-                            autoPlay: true,
-                            initialPage: 1,
-                            enlargeCenterPage: true,
-                            viewportFraction: 0.8,
-                            aspectRatio: 1.2),
                       ),
-                      const SizedBox(height: 10),
-                      DotsIndicator(
-                        dotsCount: movies.length,
-                        position: currentIndex,
-                        decorator: DotsDecorator(
-                          activeColor: Theme.of(context).primaryColor,
-                          color: Colors.grey.shade300,
-                          size: const Size.square(9.0),
-                          spacing: const EdgeInsets.symmetric(horizontal: 3),
-                          activeSize: const Size(18.0, 9.0),
-                          activeShape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Container(
-                        height: 25,
-                        width: double.infinity,
-                        color: Theme.of(context).canvasColor,
-                        child: const Text(
-                          "Trending Movies",
-                          style: TextStyle(
-                              color: Colors.indigo,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: movies.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              child: ListTile(
-                                  title: Text(movies[index].title),
-                                  subtitle: Row(
-                                    children: [
-                                      Text(movies[index].releaseDate),
-                                      const SizedBox(
-                                        width: 50,
-                                      ),
-                                      const Icon(
-                                        Icons.star_rounded,
-                                        color: Colors.amber,
-                                        size: 18,
-                                      ),
-                                      Text(
-                                        movies[index]
-                                            .rating
-                                            .toDouble()
-                                            .toString(),
-                                        style: const TextStyle(
-                                            color: Colors.amber),
-                                      ),
-                                    ],
-                                  ),
-                                  trailing: CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage:
-                                        NetworkImage(movies[index].image),
-                                  )),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 );
               }
 
