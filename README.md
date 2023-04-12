@@ -1,6 +1,6 @@
-# movie_app
+# Movie App
 
-A new Flutter project.
+A Flutter movies app that uses the Cubit state management library, follows a Clean Code Architecture (CCA) design pattern
 
 ## Getting Started
 
