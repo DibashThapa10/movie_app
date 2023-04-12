@@ -14,11 +14,12 @@ This app depends on the following packages:
 
 # API
 
-This app uses the MoviesAPI to fetch latest movies details from https://api.themoviedb.org/3/trending/movie/week?api_key=060e7c76aff06a20ca4a875981216f3f
+This app uses the movie API to fetch latest movies details from https://api.themoviedb.org/3/trending/movie/week?api_key=060e7c76aff06a20ca4a875981216f3f
 
 Some screenshot of a Movie App.
 
 ![20230412_144226](https://user-images.githubusercontent.com/70568797/231405727-01959921-839f-4faf-a11b-ed860c329de7.jpg)
+
 
 ![20230412_144259](https://user-images.githubusercontent.com/70568797/231405802-fb818609-472a-4d7d-a61d-573de9791dad.jpg)
 
