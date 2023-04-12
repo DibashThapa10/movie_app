@@ -144,10 +144,7 @@ class _MoviesPageState extends State<MoviesPage> {
                                       size: 18,
                                     ),
                                     Text(
-                                      movies[index]
-                                          .rating
-                                          .toDouble()
-                                          .toString(),
+                                      movies[index].rating.toString(),
                                       style:
                                           const TextStyle(color: Colors.amber),
                                     ),
