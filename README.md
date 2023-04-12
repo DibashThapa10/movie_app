@@ -1,18 +1,18 @@
 # Movie App
 
-A Flutter movies app that uses the Cubit state management library, follows a Clean Code Architecture (CCA) design pattern
+A Flutter movie app that uses the Cubit state management library, follows a Clean Code Architecture (CCA) design pattern
 
 # Features
 
 • Browse the latest movies list with released date and rating
 
-#Dependencies
+# Dependencies
 
 This app depends on the following packages:
 
 • flutter_bloc: ^8.1.2 • dio: ^5.1.1 • equatable: ^2.0.5 • carousel_slider: ^4.2.1 • dots_indicator: ^2.1.0
 
-#API
+# API
 
 This app uses the MoviesAPI to fetch latest movies details from https://api.themoviedb.org/3/trending/movie/week?api_key=060e7c76aff06a20ca4a875981216f3f
 
