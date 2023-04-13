@@ -14,13 +14,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MovieCubit>(
-      create: (_) => MovieCubit(repository: MovieRepository(Dio())),
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Movie App',
-        home: MoviesPage(),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Movie App',
+      home: BlocProvider<MovieCubit>(
+          create: (BuildContext context) =>
+              MovieCubit(repository: MovieRepository(Dio())),
+          child: const MoviesPage()),
     );
   }
 }

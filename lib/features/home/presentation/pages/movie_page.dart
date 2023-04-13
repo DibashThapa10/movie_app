@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/features/home/presentation/cubit/movie_cubit.dart';
 import 'package:movie_app/features/home/presentation/cubit/movie_state.dart';
@@ -14,7 +15,8 @@ class MoviesPage extends StatefulWidget {
 
 class _MoviesPageState extends State<MoviesPage> {
   late final MovieCubit _cubit;
-  double currentIndex = 1;
+  double currentIndex = 0;
+  bool isRefreshing = false;
   @override
   void initState() {
     _cubit = context.read<MovieCubit>();
@@ -31,13 +33,19 @@ class _MoviesPageState extends State<MoviesPage> {
         centerTitle: true,
       ),
       body: RefreshIndicator(
-        onRefresh: () {
-          return _cubit.getTrendingMovies();
+        onRefresh: () async {
+          setState(() {
+            isRefreshing = true;
+          });
+          await _cubit.getTrendingMovies();
+          setState(() {
+            isRefreshing = false;
+          });
         },
         child: BlocConsumer<MovieCubit, MovieState>(
             listener: (context, state) {},
             builder: (context, state) {
-              if (state is LoadingState) {
+              if (state is LoadingState && !isRefreshing) {
                 return const Center(
                     child: CircularProgressIndicator.adaptive());
               } else if (state is ErrorState) {
@@ -89,7 +97,7 @@ class _MoviesPageState extends State<MoviesPage> {
                             });
                           },
                           autoPlay: true,
-                          initialPage: 1,
+                          initialPage: 0,
                           enlargeCenterPage: true,
                           viewportFraction: 0.8,
                           aspectRatio: 1.2),
@@ -120,7 +128,7 @@ class _MoviesPageState extends State<MoviesPage> {
                             fontSize: 20,
                             fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
-                      ),
+                      ).animate().fade(duration: 1000.ms).slideX(),
                     ),
                     const SizedBox(
                       height: 10,
@@ -130,32 +138,34 @@ class _MoviesPageState extends State<MoviesPage> {
                         itemCount: movies.length,
                         itemBuilder: (context, index) {
                           return Card(
-                            child: ListTile(
-                                title: Text(movies[index].title),
-                                subtitle: Row(
-                                  children: [
-                                    Text(movies[index].releaseDate),
-                                    const SizedBox(
-                                      width: 50,
-                                    ),
-                                    const Icon(
-                                      Icons.star_rounded,
-                                      color: Colors.amber,
-                                      size: 18,
-                                    ),
-                                    Text(
-                                      movies[index].rating.toString(),
-                                      style:
-                                          const TextStyle(color: Colors.amber),
-                                    ),
-                                  ],
-                                ),
-                                trailing: CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage:
-                                      NetworkImage(movies[index].image),
-                                )),
-                          );
+                              child: ListTile(
+                                      title: Text(movies[index].title),
+                                      subtitle: Row(
+                                        children: [
+                                          Text(movies[index].releaseDate),
+                                          const SizedBox(
+                                            width: 50,
+                                          ),
+                                          const Icon(
+                                            Icons.star_rounded,
+                                            color: Colors.amber,
+                                            size: 18,
+                                          ),
+                                          Text(
+                                            movies[index].rating.toString(),
+                                            style: const TextStyle(
+                                                color: Colors.amber),
+                                          ),
+                                        ],
+                                      ),
+                                      trailing: CircleAvatar(
+                                        radius: 30,
+                                        backgroundImage:
+                                            NetworkImage(movies[index].image),
+                                      ))
+                                  .animate()
+                                  .fade(duration: 1000.ms)
+                                  .slideX());
                         },
                       ),
                     ),
