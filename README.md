@@ -10,7 +10,7 @@ A Flutter movie app that uses the Cubit state management library, follows a Clea
 
 This app depends on the following packages:
 
-• flutter_bloc: ^8.1.2 • dio: ^5.1.1 • equatable: ^2.0.5 • carousel_slider: ^4.2.1 • dots_indicator: ^2.1.0
+• flutter_bloc: ^8.1.2 • dio: ^5.1.1 • equatable: ^2.0.5 • carousel_slider: ^4.2.1 • dots_indicator: ^2.1.0 • flutter_animate
 
 # API
 
